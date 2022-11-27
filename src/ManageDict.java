@@ -8,8 +8,8 @@ public class ManageDict {
 
         public static TreeMap<String, String> map;
         public static LinkedList<String> his;
-        public static String nameFile = "/Users/thanhnhi/IdeaProjects/slangword1/src/slang.txt";
-        public static String fileName = "/Users/thanhnhi/IdeaProjects/slangword1/src/his.txt";
+        public static String nameFile = "/Users/thanhnhi/IdeaProjects/Slangword/src/slang.txt";
+        public static String fileName = "/Users/thanhnhi/IdeaProjects/Slangword/src/his.txt";
 
         public static TreeMap<String, String> readFile() throws IOException {
             map = new TreeMap<String, String>();
