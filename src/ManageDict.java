@@ -6,13 +6,8 @@ import java.util.TreeMap;
 public class ManageDict {
 
 
-        public static TreeMap<String, String> map;
-        public static LinkedList<String> his;
-        public static String nameFile = "/Users/thanhnhi/IdeaProjects/Slangword/src/slang.txt";
-        public static String fileName = "/Users/thanhnhi/IdeaProjects/Slangword/src/his.txt";
-
-        public static TreeMap<String, String> readFile() throws IOException {
-            map = new TreeMap<String, String>();
+        public static TreeMap<String, String> readFile(String nameFile) throws IOException {
+            TreeMap<String, String> map1 = new TreeMap<String, String>();
             String line = null;
             BufferedReader reader = new BufferedReader(new FileReader(nameFile));
             while ((line = reader.readLine()) != null) {
@@ -20,57 +15,45 @@ public class ManageDict {
                 if (parts.length >= 2) {
                     String key = parts[0];
                     String value = parts[1];
-                    map.put(key, value);
+
+                    map1.put(key, value);
                 } else {
-                    map.put(parts[0], " ");
+                    map1.put(parts[0],line);
                 }
             }
             reader.close();
-            return map;
+            return map1;
         }
 
-        public static void writeMap() throws IOException {
-            File file = new File(nameFile);
-            BufferedWriter bw = null;
-            try {
-                bw = new BufferedWriter(new FileWriter(file));
-
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-
-                    bw.write(entry.getKey() + ":" + entry.getValue());
-
-                    bw.newLine();
+        public static void writeMap(String  nameFile,TreeMap<String, String> keys) throws IOException {
+            String line;
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(nameFile));) {
+                for (String key : keys.keySet()) {
+                    bw.write(key);
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        public static LinkedList<String> readHis() throws IOException {
-            his = new LinkedList<>();
-            File file = new File(fileName);
-            try ( BufferedReader bw = new BufferedReader(new FileReader(file));){
-                String line ;
+        public static LinkedList<String> readHis(String fileName) throws IOException {
+            LinkedList his = new LinkedList<>();
+            String line ;
+            try ( BufferedReader bw = new BufferedReader(new FileReader(fileName));){
                 while ((line = bw.readLine()) != null) {
                     his.add(line);
                 }
-                System.out.println("****");
             }
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
             return his;
         }
-        public static void saveHis() throws IOException {
-            File file = new File(fileName);
-            BufferedWriter bw = null;
-            try {
-                bw = new BufferedWriter(new FileWriter(file));
+        public static void saveHis(String fileName,LinkedList<String> keys) throws IOException {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));) {
 
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-
-                    bw.write(entry.getKey() + ":" + entry.getValue());
-
-                    bw.newLine();
+                for (String word : keys){
+                    bw.write(word + "\n");
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
